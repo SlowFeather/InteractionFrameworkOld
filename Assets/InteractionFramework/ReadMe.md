@@ -135,9 +135,15 @@ private void CreateQRCodedEventHandler(Texture2D texture2d)
     qrCodeTexture.texture = texture2d;
 }
 ```
+#### ConfigModule
+初始化分辨率，是否全屏，在哪块屏幕上显示
 
-
-
+``` CSharp
+configModule.InitResolution();
+configModule.InitMonitor();
+configModule.InitFrameRate();
+```
+读取内容位于Ini文件中
 
 ## Plugins
 ### INI
