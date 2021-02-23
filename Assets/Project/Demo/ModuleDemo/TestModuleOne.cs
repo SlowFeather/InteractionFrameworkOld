@@ -5,12 +5,20 @@ namespace InteractionFramework.Runtime.Demo
 {
     public class TestModuleOne : BusinessModule
     {
+        /// <summary>
+        /// 创建Module时触发
+        /// </summary>
+        /// <param name="args"></param>
         public override void Create(object args = null)
         {
             base.Create(args);
             Debug.Log("Create TestModuleOne Module");
         }
-
+        /// <summary>
+        /// 当收到消息时触发
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="args"></param>
         protected override void OnModuleMessage(string msg, object[] args)
         {
             base.OnModuleMessage(msg, args);

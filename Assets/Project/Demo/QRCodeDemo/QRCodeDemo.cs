@@ -8,14 +8,27 @@ namespace InteractionFramework.Runtime.Demo
 {
     public class QRCodeDemo : MonoBehaviour
     {
-
+        /// <summary>
+        /// QRCode模块
+        /// </summary>
         QRCodeModule qRCodeModule;
 
+        /// <summary>
+        /// 用来展示二维码
+        /// </summary>
         public RawImage qrCodeTexture;
 
+        /// <summary>
+        /// 二维码内容
+        /// </summary>
+        public Text contentTxt;
+
+        /// <summary>
+        /// 相机图
+        /// </summary>
         public RawImage camTexture;
 
-        public Text contentTxt;
+        
         // Start is called before the first frame update
         void Start()
         {

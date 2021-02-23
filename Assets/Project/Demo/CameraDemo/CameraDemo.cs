@@ -13,7 +13,6 @@ namespace InteractionFramework.Runtime.Demo
         public int cameraWidth = 640;
         public int cameraHeight = 480;
 
-        // Start is called before the first frame update
         void Start()
         {
             //启动摄像头
@@ -26,7 +25,6 @@ namespace InteractionFramework.Runtime.Demo
             }
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))

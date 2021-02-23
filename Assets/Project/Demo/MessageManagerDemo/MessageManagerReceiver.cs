@@ -8,30 +8,24 @@ namespace InteractionFramework.Runtime.Demo
     {
         private void Awake()
         {
+            //添加监听
             MessageManager.Instance.AddEventListener(10001, ReceiveFunction);
         }
 
+        /// <summary>
+        /// 收到消息回调
+        /// </summary>
+        /// <param name="a"></param>
         private void ReceiveFunction(object a)
         {
             string msg = (string)a;
             Debug.Log(msg);
         }
 
-        // Start is called before the first frame update
-        void Start()
-        {
 
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        
         private void OnDestroy()
         {
+            //移除监听
             MessageManager.Instance.RemoveEventListener(10001, ReceiveFunction);
         }
     }

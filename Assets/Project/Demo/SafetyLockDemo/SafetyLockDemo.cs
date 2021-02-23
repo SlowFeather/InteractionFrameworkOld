@@ -14,12 +14,14 @@ namespace InteractionFramework.Runtime.Demo
             string namespacepath = "InteractionFramework.Runtime";
             ModuleManager.Instance.Init(namespacepath);
 
-            
+            //创建模块
             safetyLockModule = (SafetyLockModule)ModuleManager.Instance.CreateModule(ModuleDef.SafetyLockModule);
-
+            
+            //设置一天过期
             safetyLockModule.availableTime = 1;
+            //添加过没过期的监听
             safetyLockModule.ExpireEvent += ExpireEventHandler;
-
+            //初始化
             safetyLockModule.Init();
 
         }

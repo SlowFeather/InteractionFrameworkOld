@@ -6,19 +6,21 @@ namespace InteractionFramework.Runtime.Demo
 {
     public class MultiThreadDemo : MonoBehaviour
     {
+        /// <summary>
+        /// 测试线程
+        /// </summary>
         Thread threadOne;
 
-        // Start is called before the first frame update
+
         void Start()
         {
-            //初始化管理器
+            //初始化多线程访问主线程工具
             UnityMainThreadDispatcher.InitSingletion();
             UnityMainThreadDispatcher.CheckInstance();
 
             //新建一个线程
             threadOne = new Thread(SubThread);
             threadOne.Start();
-
         }
 
         /// <summary>
@@ -28,16 +30,18 @@ namespace InteractionFramework.Runtime.Demo
         {
             for (int i = 0; i < 10; i++)
             {
-                Debug.Log(Thread.CurrentThread.Name+" Log : " + i);
-                //访问主线程
+                //第一种访问主线程
                 UnityMainThreadDispatcher.Instance.Enqueue(() => {
-                    Debug.Log("This is executed from the main thread");
+                    Debug.Log(" Log1 : "+"This is executed from the main thread");
                     this.transform.position = Vector3.one * i;
                 });
+                //第二种访问主线程
+                UnityMainThreadDispatcher.Instance.Enqueue(ThisWillBeExecutedOnTheMainThread());
                 Thread.Sleep(1000);
             }
-            ExampleMainThreadCall();
+            
         }
+
 
         /// <summary>
         /// IEnumerator方式
@@ -45,17 +49,10 @@ namespace InteractionFramework.Runtime.Demo
         /// <returns></returns>
         public IEnumerator ThisWillBeExecutedOnTheMainThread()
         {
-            Debug.Log("This is executed from the main thread");
-            this.transform.position = Vector3.one * 20;
+            Debug.Log(" Log2 : "+"This is executed from the main thread");
+            this.transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles+Vector3.one);
             yield return null;
         }
-        public void ExampleMainThreadCall()
-        {
-            //访问主线程
-            UnityMainThreadDispatcher.Instance.Enqueue(ThisWillBeExecutedOnTheMainThread());
-        }
-
-
 
 
         private void OnDestroy()

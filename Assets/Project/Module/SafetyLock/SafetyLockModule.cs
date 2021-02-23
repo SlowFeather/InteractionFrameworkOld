@@ -26,7 +26,7 @@ namespace InteractionFramework.Runtime
         public YearMonthDay nowYMD;
 
         /// <summary>
-        /// 有效时间为60天
+        /// 有效时间默认为60天
         /// </summary>
         public int availableTime=60;
 

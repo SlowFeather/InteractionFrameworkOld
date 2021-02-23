@@ -8,13 +8,8 @@ namespace InteractionFramework.Runtime.Demo
         // Start is called before the first frame update
         void Start()
         {
+            //发送消息
             MessageManager.Instance.Dispatch(10001, "Hello");
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }

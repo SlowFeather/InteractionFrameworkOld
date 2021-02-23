@@ -13,6 +13,8 @@ namespace InteractionFramework.Runtime
         public static string ConfigModule = "ConfigModule";
         public static string QRCodeModule = "QRCodeModule";
         public static string SafetyLockModule = "SafetyLockModule";
+        public static string UIModule = "UIModule";
+
 
 
 
