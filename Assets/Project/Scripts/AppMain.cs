@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using InteractionFramework.Runtime;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,10 +10,14 @@ namespace InteractionFramework.Runtime
 {
     public class AppMain : MonoBehaviour
     {
+
+        [ReadOnly]
+        public string Interaction="Framework";
         private void Awake()
         {
             InitServiceModule();
             InitBusinessModule();
+
         }
 
         private void InitServiceModule()
@@ -20,7 +25,7 @@ namespace InteractionFramework.Runtime
             try
             {
                 //本地持久化 将本地持久化文件放到StreamingAssets
-                IniStorage.mINIFileName = Application.streamingAssetsPath + "/config.ini";
+                IniStorage.mINIFileName = Application.streamingAssetsPath + "/IFConfig/config.ini";
                 //或者放到沙盒路径
                 //IniStorage.mINIFileName = Application.persistentDataPath + "/config.ini";
 
@@ -60,11 +65,39 @@ namespace InteractionFramework.Runtime
 
                 //二维码工具
                 //ModuleManager.Instance.CreateModule(ModuleDef.QRCodeModule);
+
+                //快捷键工具
+                ShortcutKey.InitSingletion();
+
+                //创建加密模块
+                SafetyLockModule safetyLockModule = (SafetyLockModule)ModuleManager.Instance.CreateModule(ModuleDef.SafetyLockModule);
+                //设置一天过期 0则永不过期
+                safetyLockModule.availableTime = 0;
+                //safetyLockModule.availableTime = 1;
+                //添加过没过期的监听
+                safetyLockModule.ExpireEvent += ExpireEventHandler;
+                //初始化加密模块
+                safetyLockModule.Init();
+
             }
             catch (Exception ex)
             {
                 Debug.LogError("InitBusinessModule ERROR : " + ex);
                 throw;
+            }
+        }
+
+        private void ExpireEventHandler(bool isExpire)
+        {
+            if (isExpire)
+            {
+                Debug.Log("过期了");
+
+            }
+            else
+            {
+                Debug.Log("没过期");
+
             }
         }
     }

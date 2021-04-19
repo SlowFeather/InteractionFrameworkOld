@@ -61,7 +61,7 @@ namespace BgTools.PlayerPrefsEditor
 #elif UNITY_EDITOR_OSX
         private readonly char[] invalidFilenameChars = { '$', '%', '&', '\\', '/', ':', '<', '>', '|', '~' };
 #endif
-        [MenuItem("Interaction Framework/PlayerPrefs/PlayerPrefs Editor", false, 40)]
+        [MenuItem("Interaction Framework/PlayerPrefs Editor", false, 60)]
         static void ShowWindow()
         {
             PreferencesEditorWindow window = EditorWindow.GetWindow<PreferencesEditorWindow>(false, "Prefs Editor");

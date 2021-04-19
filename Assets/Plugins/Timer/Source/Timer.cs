@@ -13,7 +13,7 @@ using JetBrains.Annotations;
 using Object = UnityEngine.Object;
 
 /// <summary>
-/// Allows you to run events on a delay without the use of <see cref="Coroutine"/>s
+/// Allows you to run events on a delay without the use of 允许您延迟运行事件，而不使用 <see cref="Coroutine"/>s
 /// or <see cref="MonoBehaviour"/>s.
 ///
 /// To create and start a Timer, use the <see cref="Register"/> method.
