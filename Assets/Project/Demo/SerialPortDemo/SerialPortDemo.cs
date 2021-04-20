@@ -1,18 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class SerialPortDemo : MonoBehaviour
+namespace InteractionFramework.Runtime.Demo
 {
-    // Start is called before the first frame update
-    void Start()
+    public class SerialPortDemo : MonoBehaviour
     {
-        SerialPortScript.InitSingletion();
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+            SerialPortManager.InitSingletion();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

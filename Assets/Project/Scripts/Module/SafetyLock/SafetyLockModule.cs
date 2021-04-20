@@ -76,7 +76,7 @@ namespace InteractionFramework.Runtime
         {
             //精确到秒 一天是86400秒 一个月是2626560秒 一年是31536000秒
             float intervalDay = intervalTime / 86400.0f;
-            Debug.Log("间隔天数 : " + (int)intervalDay + " 天. 设定天数为 : "+ availableTime+" 天");
+            //Debug.Log("间隔天数 : " + (int)intervalDay + " 天. 设定天数为 : "+ availableTime+" 天");
             if (availableTime==0)
             {
                 ExpireEvent?.Invoke(false);

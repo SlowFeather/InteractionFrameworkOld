@@ -67,7 +67,10 @@ namespace InteractionFramework.Runtime
                 //ModuleManager.Instance.CreateModule(ModuleDef.QRCodeModule);
 
                 //快捷键工具
-                ShortcutKey.InitSingletion();
+                ShortcutKeyMangager.InitSingletion();
+
+                //串口工具
+                //SerialPortManager.InitSingletion();
 
                 //创建加密模块
                 SafetyLockModule safetyLockModule = (SafetyLockModule)ModuleManager.Instance.CreateModule(ModuleDef.SafetyLockModule);
@@ -91,12 +94,12 @@ namespace InteractionFramework.Runtime
         {
             if (isExpire)
             {
-                Debug.Log("过期了");
+                //Debug.Log("过期了");
 
             }
             else
             {
-                Debug.Log("没过期");
+                //Debug.Log("没过期");
 
             }
         }

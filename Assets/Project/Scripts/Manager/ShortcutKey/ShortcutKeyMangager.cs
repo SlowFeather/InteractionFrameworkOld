@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace InteractionFramework.Runtime
 {
-    public class ShortcutKey : MonoSingletion<ShortcutKey>
+    public class ShortcutKeyMangager : MonoSingletion<ShortcutKeyMangager>
     {
 
         // Update is called once per frame

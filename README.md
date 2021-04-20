@@ -276,9 +276,71 @@ Timer.Register(transitionDuration,
 
 更改场景时，所有计时器均被销毁。通常，这种行为是需要的，并且发生是因为计时器由TimerController更新，并且在场景更改时销毁了该Co​​ntroller。请注意，其结果是，在关闭场景时（例如，在对象的OnDestroy方法中）创建Timer会在生成TimerController时导致Unity错误。
 
-### FSM （TODO）
+### FSM
+状态机StateMachine https://github.com/thefuntastic/Unity3d-Finite-State-Machine
+``` CSharp
+using MonsterLove.StateMachine; //1. Remember the using statement
 
-https://github.com/thefuntastic/Unity3d-Finite-State-Machine
+public class MyGameplayScript : MonoBehaviour
+{
+    public enum States
+    {
+        Init, 
+        Play, 
+        Win, 
+        Lose
+    }
+    
+    StateMachine<States> fsm;
+    
+    void Awake(){
+        fsm = new StateMachine<States>(this); //2. The main bit of "magic". 
+
+        fsm.ChangeState(States.Init); //3. Easily trigger state transitions
+    }
+
+    void Init_Enter()
+    {
+        Debug.Log("Ready");
+    }
+
+    void Play_Enter()
+    {      
+        Debug.Log("Spawning Player");    
+    }
+
+    void Play_FixedUpdate()
+    {
+        Debug.Log("Doing Physics stuff");
+    }
+
+    void Play_Update()
+    {
+        if(player.health <= 0)
+        {
+            fsm.ChangeState(States.Lose); //3. Easily trigger state transitions
+        }
+    }
+
+    void Play_Exit()
+    {
+        Debug.Log("Despawning Player");    
+    }
+
+    void Win_Enter()
+    {
+        Debug.Log("Game Over - you won!");
+    }
+
+    void Lose_Enter()
+    {
+        Debug.Log("Game Over - you lost!");
+    }
+
+}
+```
+### PoolManager （TODO）
+
 
 ### Chart （TODO）
 https://github.com/spr1ngd/UnityCodes

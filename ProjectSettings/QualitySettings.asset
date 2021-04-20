@@ -190,10 +190,10 @@ QualitySettings:
     name: Ultra
     pixelLightCount: 4
     shadows: 2
-    shadowResolution: 2
+    shadowResolution: 3
     shadowProjection: 1
     shadowCascades: 2
-    shadowDistance: 150
+    shadowDistance: 70
     shadowNearPlaneOffset: 3
     shadowCascade2Split: 0.49410033
     shadowCascade4Split: {x: 0.13491584, y: 0.19999999, z: 0.6254203}
