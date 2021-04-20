@@ -1,5 +1,8 @@
 # InteractionFramework使用手册
-Unity InteractionFramework
+
+## 概念
+全模块化管理，无论是摄像头调用、二维码生成/识别、Kinect实时获取人物位置、多块屏幕同时显示/多块屏幕显示不同内容、雷达获取触点位置都是单独的模块，可随时添加或者删除。
+(以上均为未来实现功能)
 ## Editor
 
 ### AutoSaveHierarchyScene
