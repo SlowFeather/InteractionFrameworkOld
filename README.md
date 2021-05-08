@@ -1,12 +1,11 @@
 # InteractionFramework使用手册
-
 ## 概念
 全模块化管理，无论是摄像头调用、二维码生成/识别、Kinect实时获取人物位置、多块屏幕同时显示/多块屏幕显示不同内容、雷达获取触点位置都是单独的模块，可随时添加或者删除。
 (以上均为未来实现功能)
 ## Editor
-
-### AutoSaveHierarchyScene
-将内部`IsAutoSave`设置为`True`可在点击运行按钮时自动保存当前场景
+### SaveHierarchyScene
+将内部`Is
+Save`设置为`True`可在点击运行按钮时自动保存当前场景
 ### Inspector
 **Inspector**面板扩展
 - 快速将`Transform`归零
@@ -80,6 +79,124 @@ TestModuleOne module2 = ModuleManager.Instance.GetModule("TestModuleOne") as Tes
 ```
 
 ## Project
+### Manager
+#### UIManager
+
+``` CSharp
+//检查单例
+UIManager.InitSingletion();
+UIManager.CheckInstance();
+//设置预制体路径
+UIManager.Instance.uiPath = "Prefabs/UIDemo/";
+//找到并设置UI根物体
+GameObject uiRoot = GameObject.Find("Canvas");
+//初始化
+UIManager.Instance.InitUIManager(uiRoot);
+
+
+//打开界面
+UIManager.Instance.OpenPage(TestUIDef.TestUI);
+//界面方法
+UIManager.Instance.GetPage<TestUI>(TestUIDef.TestUI).Hello();
+//关闭界面
+UIManager.Instance.ClosePage(TestUIDef.TestUI);
+//移除界面
+UIManager.Instance.RemovePage(TestUIDef.TestUI);
+```
+子页面需要继承```UIPage```
+``` CSharp
+public class TestUI : UIPage
+{
+    //生成时触发一次
+    protected override void OnInitialize()
+    {
+        base.OnInitialize();
+        Debug.Log("Test UI OnInitialize");
+    }
+    //每次打开时触发
+    protected override void OnOpen(object arg)
+    {
+        base.OnOpen(arg);
+        Debug.Log("Test UI OnOpen");
+
+    }
+    //每次关闭时触发
+    protected override void OnClose()
+    {
+        base.OnClose();
+        Debug.Log("Test UI OnClose");
+    }
+
+    //自定义方法
+    public void Hello()
+    {
+        Debug.Log("Hello");
+    }
+}
+```
+#### PoolManagerHelper
+对象池辅助工具
+创建基础池子```CreatSpawnPool()```
+
+创建预制体池子（需要有基础池子）```CreatePrefabPool()```
+``` CSharp
+/// <summary>
+/// 创建SpawnPool
+/// </summary>
+public void CreatSpawnPool(GameObject poolParent)
+{
+    SpawnPool myPool = poolParent.AddComponent<SpawnPool>();
+    myPool.poolName = "Pool";
+    myPool.matchPoolScale = false;
+    myPool.matchPoolLayer = false;
+    myPool.dontReparent = false;
+    myPool.dontDestroyOnLoad = true;
+
+    Pools = myPool;
+}
+
+/// <summary>
+/// 创建预制体池子
+/// </summary>
+public void CreatePrefabPool(string prefabPath,int maxNumber)
+{
+    SpawnPool myPool = PoolManager.Pools["Pool"];
+    PrefabPool myPrefabPool = new PrefabPool(Resources.Load<Transform>(prefabPath));
+
+    if (myPool._perPrefabPoolOptions.Contains(myPrefabPool))
+    {
+        Debug.LogError("Has Pool!!!");
+        return;
+    }
+
+    //默认初始化20个Prefab
+    myPrefabPool.preloadAmount = maxNumber;
+    //如果都选表示缓存池所有的gameobject可以“异步”加载。
+    myPrefabPool.preloadTime = false;
+    //每几帧加载一个
+    myPrefabPool.preloadFrames = 20;
+    //延迟多久开始加载，单位是秒。
+    myPrefabPool.preloadDelay = 5;
+    //开启限制 是否开始实例的限制功能。
+    myPrefabPool.limitInstances = true;
+    //关闭无限取Prefab 如果我们限制了缓存池里面只能有10个Prefab，如果不勾选它，那么你拿第11个的时候就会返回null。如果勾选它在取第11个的时候他会返回给你前10个里最不常用的那个。
+    myPrefabPool.limitFIFO = true;
+    //限制池子里最大的Prefab数量 限制缓存池里最大的Prefab的数量，它和上面的preloadAmount是有冲突的，如果同时开启则以limitAmout为准。
+    myPrefabPool.limitAmount = maxNumber;
+    //开启自动清理池子 是否开启缓存池智能自动清理模式
+    myPrefabPool.cullDespawned = false;
+    //最终保留 缓存池自动清理，但是始终保留几个对象不清理。
+    myPrefabPool.cullAbove = 10;
+    //多久清理一次 每过多久执行一遍自动清理，单位是秒。
+    myPrefabPool.cullDelay = 30;
+    //每次清理几个 每次自动清理几个游戏对象。
+    myPrefabPool.cullMaxPerPass = 5;
+    //初始化内存池
+    myPool.CreatePrefabPool(myPrefabPool);
+    myPool._perPrefabPoolOptions.Add(myPrefabPool);
+}
+```
+
 ### Module
 #### CameraModule
 CameraModule为服务模块，所以是单例形式
@@ -139,7 +256,55 @@ private void CreateQRCodedEventHandler(Texture2D texture2d)
 }
 ```
 
+#### ConfigModule
+读取设置文件中的内容，完成设置（部分需要重启生效）
+``` CSharp
+string namespacepath = "InteractionFramework.Runtime";
+ModuleManager.Instance.Init(namespacepath);
+//创建生成二维码工具模块
+ConfigModule configModule=(ConfigModuModuleManager.Instance.CreateModule(ModuleDConfigModule);
+// 初始化分辨率
+configModule.InitResolution();
+// 初始化播放屏幕
+// 设置完屏幕需要重启生效
+configModule.InitMonitor();
+// 设置帧率
+configModule.InitFrameRate();
+```
 
+#### SafetyLockModule
+
+``` CSharp
+//初始化模块命名空间
+string namespacepath = "InteractionFramework.Runtime";
+ModuleManager.Instance.Init(namespacepath);
+//初始化ini读写模块
+IniStorage.mINIFileName = Application.streamingAssetsPath + "/IFConfig/config.ini";
+//创建模块
+safetyLockModule = (SafetyLockModule)ModuleManager.Instance.CreateModule(ModuleDef.SafetyLockModule);
+
+//设置一天过期 0则永不过期
+//safetyLockModule.availableTime = 0;
+safetyLockModule.availableTime = 1;
+//添加过没过期的监听
+safetyLockModule.ExpireEvent += ExpireEventHandler;
+//初始化
+safetyLockModule.Init();
+```
+回调
+``` CSharp
+private void ExpireEventHandler(bool isExpire)
+{
+    if (isExpire)
+    {
+        Debug.Log("过期了");
+    }
+    else
+    {
+        Debug.Log("没过期");
+    }
+}
+```
 
 
 ## Plugins
@@ -342,8 +507,18 @@ public class MyGameplayScript : MonoBehaviour
 
 }
 ```
-### PoolManager （TODO）
+### PoolManager
+更多详见```PoolManagerHelper```
+``` CSharp
+//从池子里面取一个GameObjcet，并且设置他的父物体
+Transform momo = PoolManager.Pools["Test"].Spawn("Sphere",this.transform);
 
+//将此物体回收，重置他的父物体
+PoolManager.Pools["Test"].Despawn(this.transform, PoolManager.Pools["Pool"].transform);
+
+//清空池子
+PoolManager.Pools["Test"].DespawnAll();
+```
 
 ### Chart （TODO）
 https://github.com/spr1ngd/UnityCodes

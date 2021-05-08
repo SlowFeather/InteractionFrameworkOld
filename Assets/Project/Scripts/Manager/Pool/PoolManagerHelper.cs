@@ -8,15 +8,15 @@ namespace InteractionFramework.Runtime
         public SpawnPool Pools;
         private void Start()
         {
-            CreatSpawnPool();
+            CreatSpawnPool(this.gameObject);
         }
 
         /// <summary>
         /// 创建SpawnPool
         /// </summary>
-        public void CreatSpawnPool()
+        public void CreatSpawnPool(GameObject poolParent)
         {
-            SpawnPool myPool = this.gameObject.AddComponent<SpawnPool>();
+            SpawnPool myPool = poolParent.AddComponent<SpawnPool>();
             myPool.poolName = "Pool";
             myPool.matchPoolScale = false;
             myPool.matchPoolLayer = false;

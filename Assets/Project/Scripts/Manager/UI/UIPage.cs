@@ -6,17 +6,16 @@ public class UIPage : MonoBehaviour
 {
     public void Initialize()
     {
-        
         OnInitialize();
     }
-    public void Open(object arg, bool isPop)
+    public void Open(object arg)
     {
         
         gameObject.SetActive(true);
         OnOpen(arg);
     }
 
-    public void Close(bool bySelf)
+    public void Close()
     {
         gameObject.SetActive(false);
         OnClose();

@@ -3,74 +3,76 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public enum TestStates
+namespace InteractionFramework.Runtime.Demo
 {
-    StateOne,
-    StateTwo,
-    StateThree,
-}
-public class StateMachineDemo : MonoBehaviour
-{
-    private StateMachine<TestStates> fsm;
-    // Start is called before the first frame update
-    void Start()
+    public enum TestStates
     {
-        fsm = StateMachine<TestStates>.Initialize(this, TestStates.StateOne);
-
+        StateOne,
+        StateTwo,
+        StateThree,
     }
-
-    void StateOne_Enter()
+    public class StateMachineDemo : MonoBehaviour
     {
-        Debug.Log("进入StateOne");
-    }
-
-    void StateOne_Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
+        private StateMachine<TestStates> fsm;
+        // Start is called before the first frame update
+        void Start()
         {
-            fsm.ChangeState(TestStates.StateTwo, StateTransition.Safe);
+            fsm = StateMachine<TestStates>.Initialize(this, TestStates.StateOne);
+
         }
-    }
-    void StateOne_Exit()
-    {
-        Debug.Log("离开StateOne");
-    }
 
-    void StateTwo_Enter()
-    {
-        Debug.Log("进入StateTwo");
-    }
-
-    void StateTwo_Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
+        void StateOne_Enter()
         {
-            fsm.ChangeState(TestStates.StateThree, StateTransition.Safe);
+            Debug.Log("进入StateOne");
         }
-    }
-    void StateTwo_Exit()
-    {
-        Debug.Log("离开StateTwo");
-    }
 
-
-    void StateThree_Enter()
-    {
-        Debug.Log("进入StateThree");
-    }
-
-    void StateThree_Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
+        void StateOne_Update()
         {
-            fsm.ChangeState(TestStates.StateOne, StateTransition.Safe);
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                fsm.ChangeState(TestStates.StateTwo, StateTransition.Safe);
+            }
         }
-    }
-    void StateThree_Exit()
-    {
-        Debug.Log("离开StateThree");
-    }
+        void StateOne_Exit()
+        {
+            Debug.Log("离开StateOne");
+        }
+
+        void StateTwo_Enter()
+        {
+            Debug.Log("进入StateTwo");
+        }
+
+        void StateTwo_Update()
+        {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                fsm.ChangeState(TestStates.StateThree, StateTransition.Safe);
+            }
+        }
+        void StateTwo_Exit()
+        {
+            Debug.Log("离开StateTwo");
+        }
 
 
+        void StateThree_Enter()
+        {
+            Debug.Log("进入StateThree");
+        }
+
+        void StateThree_Update()
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                fsm.ChangeState(TestStates.StateOne, StateTransition.Safe);
+            }
+        }
+        void StateThree_Exit()
+        {
+            Debug.Log("离开StateThree");
+        }
+
+
+    }
 }

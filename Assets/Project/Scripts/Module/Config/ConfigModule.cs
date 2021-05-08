@@ -34,6 +34,9 @@ namespace InteractionFramework.Runtime
             Debug.Log("Monitor : " + selectMonitor);
 
         }
+        /// <summary>
+        /// 设置帧率
+        /// </summary>
         public void InitFrameRate()
         {
             int frameRate = IniStorage.GetInt("FrameRate");

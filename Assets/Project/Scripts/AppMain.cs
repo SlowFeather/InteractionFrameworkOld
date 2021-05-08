@@ -42,6 +42,11 @@ namespace InteractionFramework.Runtime
 
                 //消息中心
                 MessageManager.InitSingleton();
+
+                //UI相关
+                UIManager.InitSingletion();
+                UIManager.Instance.InitUIManager(GameObject.Find("UIRoot"));
+                UIManager.Instance.uiPath = "Prefabs/UI/";
             }
             catch (Exception ex)
             {
