@@ -4,8 +4,7 @@
 (以上均为未来实现功能)
 ## Editor
 ### SaveHierarchyScene
-将内部`Is
-Save`设置为`True`可在点击运行按钮时自动保存当前场景
+将内部`IsSave`设置为`True`可在点击运行按钮时自动保存当前场景所做的改动
 ### Inspector
 **Inspector**面板扩展
 - 快速将`Transform`归零
@@ -320,8 +319,14 @@ public static string mINIFileName = Application.streamingAssetsPath + "/config.i
 //需要运行时修改，则放入沙盒路径下
 //public static string mINIFileName = Application.persistentDataPath + "/config.ini";
 ```
+### xNode
+用于绘制连线
+https://github.com/Siccity/xNode
 
+### AudioManager
+用于音频播放
 
+https://github.com/oluwaseyeayinla/Papae.AudioManager
 
 ### IngameDebugConsole
 用于Debug
@@ -345,11 +350,15 @@ https://github.com/haydenjameslee/unity-define-inspector
 
 ### UnityFBXExporter
 
-模型导出FBXhttps://github.com/KellanHiggins/UnityFBXExporter
+模型导出FBX
+
+https://github.com/KellanHiggins/UnityFBXExporter
 
 ### UnityMainThreadDispatcher
 
-其他线程访问主线程https://github.com/PimDeWitte/UnityMainThreadDispatcher
+其他线程访问主线程
+
+https://github.com/PimDeWitte/UnityMainThreadDispatcher
 ``` CSharp
 public IEnumerator ThisWillBeExecutedOnTheMainThread()
 {

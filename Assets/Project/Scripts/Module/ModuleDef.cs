@@ -7,6 +7,10 @@ namespace InteractionFramework.Runtime
     {
         //=====================ServerModule=====================
         public static string CameraModule = "CameraModule";
+        public static string UDPServerModule = "UDPServerModule";
+        public static string UDPClientModule = "UDPClientModule";
+
+
         //public static string LocalStorageModule = "LocalStorageModule";
 
         //=====================BusinessModule=====================
@@ -14,6 +18,8 @@ namespace InteractionFramework.Runtime
         public static string QRCodeModule = "QRCodeModule";
         public static string SafetyLockModule = "SafetyLockModule";
         public static string UIModule = "UIModule";
+
+
 
 
 

@@ -1,0 +1,43 @@
+syntax = "proto2";
+
+package ProtobufMsg;
+ 
+/* 
+* required：数据是必须的。
+* optional：数据是可选的。
+* repeated：数据是一个数组。
+*/
+
+//外层
+message MessagePackage{
+    required int32 protoid = 1;
+    required bytes protodata = 2;
+}
+
+
+//提交
+message CaterpillarPullRequest //IRequest
+{
+    required string clientname = 1; //名称
+    required string shapes = 2; //形状map 0是圆形 1是长方形 用/隔开
+    required string imgstyles = 3; //样式map 用/隔开
+}
+//回复
+message CaterpillarPullResponse //IResponse
+{
+    required int32 code = 1;   //成功与否
+    required string message = 2; //消息
+} 
+
+
+//会话心跳请求
+message HeartBeatRequest //IRequest
+{
+
+}
+
+//会话心跳回响
+message HeartBeatResponse //IResponse
+{
+
+}
